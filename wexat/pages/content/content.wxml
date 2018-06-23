@@ -73,7 +73,7 @@
               </view>
             </view>
           </view>
-          <button class="new-comment" bindtap="promptComment" data-index="{{item.textId}}"></button>
+          <button class="new-comment" bindtap="promptComment" data-index="{{item.textId}}">评论</button>
         </view>
       </view>
 

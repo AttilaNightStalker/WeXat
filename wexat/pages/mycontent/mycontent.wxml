@@ -1,4 +1,5 @@
 <view class="page">
+  <loading hidden="{{!loading}}">加载中</loading>
   <view class="nav">
     <button class="nav-mine" bindtap="toAllContent">
       <text class="nav-content">全部</text>
@@ -72,7 +73,7 @@
               </view>
             </view>
           </view>
-          <button class="new-comment" bindtap="promptComment" data-index="{{item.textId}}"></button>
+          <button class="new-comment" bindtap="promptComment" data-index="{{item.textId}}">评论</button>
         </view>
       </view>
 

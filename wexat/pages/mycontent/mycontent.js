@@ -179,6 +179,9 @@ Page({
   getData: function () {
     console.log("getting data...");
     var that = this;
+    this.setData({
+      loading: true
+    })
     wx.request({
       url: myServer,
       method: 'POST',
