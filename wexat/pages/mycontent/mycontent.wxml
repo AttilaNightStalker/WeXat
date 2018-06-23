@@ -1,0 +1,82 @@
+<view class="page">
+  <view class="nav">
+    <button class="nav-mine" bindtap="toAllContent">
+      <text class="nav-content">全部</text>
+    </button>
+    <button class="nav-search" bindtap="search">
+      <!-- <icon class="nav-icon" type="search"></icon> -->
+      <text class="nav-content">搜索</text>
+    </button>
+    <button class="nav-new" bindtap="postNew">
+      <text class="nav-content">发表</text>
+    </button>
+  </view>
+
+  <!-- for searching  -->
+  <view class="mask" wx:if="{{panelState == 1}}">
+    <view id="search-bar">
+      <input id="search-input" />
+      <button id="submit-search">
+        <icon type="search" size='15' color='black'></icon>
+      </button>
+    </view>
+  </view>
+
+  <!-- for posting new message -->
+  <view class="mask" wx:if="{{panelState == 2}}">
+    <form id="user-input" bindsubmit="submitNew">
+      <textarea id="input-text" bindinput="newMsg" />
+      <button form-type="submit" id="submit-input">发表</button>
+    </form>
+  </view>
+
+  <!-- for posting new comment -->
+  <view class="mask" wx:if="{{panelState == 3}}">
+    <form id="user-comment" bindsubmit="postComment">
+      <view style="margin = 5px;">评论: </view>
+      <textarea id="comment-text" bindinput="newMsg" />
+      <view style="display = flex;">
+        <button class="comment-op" bindtap="cancel">取消</button>
+        <button form-type="submit" class="comment-op">发表</button>
+      </view>
+    </form>
+  </view>
+
+  <!-- message area which is the major part of this page -->
+  <scroll-view scroll-y="true" scrollTop="{{sTop}}" bindscroll="scrollListener" class="messages" bindtouchstart="onTouch" bindtouchend="offTouch">
+    <!-- for all messages -->
+    <view style="width:  inherit; min-height: 93vh; padding-top: 7vh;">
+      <view class="message-view" wx:for="{{dataDemo}}" wx:key="unique">
+        <view class="message-grid grid-mine" bindtap="showComments" data-index="{{item.textId}}">
+           <view class="message-header">
+            <text style="width: inherit;">{{item.time}}</text>
+            <button catchtap="removeMessage" data-index="{{item.textId}}"></button>
+          </view> 
+          <view style="width: inherit;" class="message-content">
+            <text style="width: inherit; word-break: break-all;">{{item.content}}</text>
+          </view>
+
+          <view class="message-date"> </view>
+          <view class="massage-replies"></view>
+        </view>
+        <view class="message-comments {{commented == item.textId ? 'normal' :  'hide'}}">
+          <view class="comments-list" wx:if="{{commented == item.textId}}">
+            <view class="no-comment" wx:if="{{commentDemo.length == 0}}">
+              <text>还没有评论</text>
+            </view>
+            <view wx:else>
+              <!-- <text>有评论</text> -->
+              <view class="comment-grid" wx:for="{{commentDemo}}" wx:key="unique">
+                <text>#{{index}}:\n</text>
+                <text>{{item.content}}</text>
+              </view>
+            </view>
+          </view>
+          <button class="new-comment" bindtap="promptComment" data-index="{{item.textId}}"></button>
+        </view>
+      </view>
+
+      <view class="isLoadAll">{{loadingInfo}}</view>
+    </view>
+  </scroll-view>
+</view>
