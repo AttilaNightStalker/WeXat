@@ -1,0 +1,12 @@
+后端的主类是Server.class
+
+后端描述：
+
+Server 类创建一个SocketServer并等待连接，一旦接收到连接则产生RequestHandler对象，并且放出RequestHandler的run方法线程
+
+RequestHandler类有静态的DBQuary对象，该对象的方法执行sql操作并返回数据或者操作是否成功的flag
+
+RequestHandler对象根据对方发过来的内容调用DBQuary对象对应的操作得到回复数据内容
+
+https://pan.baidu.com/s/1TU5Xb30mdpMTNkvl7RW-nQ
+jg14
